@@ -2,7 +2,7 @@ import * as core from '@actions/core';
 import {Octokit} from '@octokit/rest';
 import {context} from '@actions/github';
 import {getAuthTokenFor, ANGULAR_ROBOT} from '../../../utils.js';
-import fetch, {HeaderInit, RequestInit} from 'node-fetch';
+import fetch, {HeadersInit, RequestInit} from 'node-fetch';
 import {RestEndpointMethodTypes} from '@octokit/plugin-rest-endpoint-methods';
 
 export async function rerunCircleCi() {
@@ -80,7 +80,7 @@ async function getCircleCiWorkflowIdForPullRequest(
 
 class CircleCiClient {
   /** Headers to include in all HTTP requests. */
-  private headers: HeaderInit = {
+  private headers: HeadersInit = {
     'Content-Type': 'application/json',
     'Circle-Token': core.getInput('circleci-token', {required: true}),
   };
@@ -108,8 +108,8 @@ class CircleCiClient {
       requestInit['body'] = JSON.stringify(body);
     }
 
-    const response = await fetch.default(url, requestInit);
-    const responseJson = await response.json();
+    const response = await fetch(url, requestInit);
+    const responseJson = (await response.json()) as any;
 
     if (!response.ok) {
       const message = responseJson['message'] || 'Unknown error';
