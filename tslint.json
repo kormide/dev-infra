@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/tslint.json",
+  "rulesDirectory": ["./tslint-rules"],
+  "rules": {
+    "ts-node-loader": true,
+    "no-shadowed-variable": true,
+    "validate-import-for-esm-cjs-interop": [
+      true,
+      {
+        "noNamedExports": [
+          "typescript",
+          "multimatch",
+          "semver",
+          "glob",
+          "nock",
+          "wait-on",
+          "browser-sync",
+          "send"
+        ]
+      }
+    ]
+  }
+}
